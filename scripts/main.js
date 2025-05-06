@@ -75,9 +75,31 @@ buttonElemento.addEventListener("click", function() {
     inputElemento.value = ""
 
     const itemElemento = document.createElement("li")
+    itemElemento.classList.add("list-group-item")
     itemElemento.innerText = valorInput
 
     listaElemento.appendChild(itemElemento)
     // listaElemento.innerHTML = "<li class='list-group-item'>" + valorInput + "</li>"
-    console.log(tarefas)
+    const listaConvertida = JSON.stringify(tarefas)
+
+    localStorage.setItem('tarefas', listaConvertida)
+    
 })
+
+
+const listaTarefasStorage = localStorage.getItem("tarefas")
+
+if(listaTarefasStorage) {
+    /** @type {string[]} */
+    const listaTarefaConvertida = JSON.parse(listaTarefasStorage)
+    
+    tarefas = listaTarefaConvertida
+
+    listaTarefaConvertida.forEach(function(tarefa) {
+        const itemElemento = document.createElement("li")
+        itemElemento.classList.add("list-group-item")
+        itemElemento.innerText = tarefa
+
+        listaElemento.appendChild(itemElemento)
+    })
+}
